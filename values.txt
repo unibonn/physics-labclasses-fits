@@ -1,0 +1,10 @@
+#Write your values in this file or a file like this.
+#All values just need to be separated by spaces, no formatting needed.
+#Notice: Those values are completely random and are just here for testing and as an example!
+
+#x-Value | x-error | y-value | y-error
+1 	0.1		1.9		0.3		
+2	0.1		4.0		0.5		
+3 	0.1		6.5		0.4		
+4	0.3		8.1		0.3		
+5	0.1		9.8		0.5		
