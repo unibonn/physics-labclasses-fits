@@ -173,21 +173,21 @@ x0    = np.array([1.0, 0.0])
 # Modul koennen Sie nun *beliebige* Funktionen fitten, also auch
 # solche, die nicht nur Parameter linear, sondern in beliebiger
 # analytischer oder numerischer Form enthalten.
-fitParams, fitCovariances = optimize.curve_fit(f, xdata, ydata, x0, sigma, absolute_sigma=True)
-slope     = fitParams[0]
+fitParams, fitCovariances = optimize.curve_fit(f, xdata, ydata, sigma=sigma,
+                                               absolute_sigma=True)
+
+# give meaningful names to the results:
+slope = fitParams[0]
 intercept = fitParams[1]
 fitErrors = np.sqrt(np.diag(fitCovariances))
 slope_std_err = fitErrors[0]
 intercept_std_err = fitErrors[1]
 
-# Leider sind die Unsicherheiten auf slope und intercept, die von
-# curve_fit berechnet werden, so nicht nutzbar. Der Grund ist der,
-# dass aus irgend einem unsinnigen Grund curve_fit die sigmas nur als
-# *relative* Gewichte und nicht, so wie von uns gewuenscht, als
-# *absolute* Unsicherheiten betrachtet. Dies koennen Sie einfach
-# testen, indem Sie alle sigmas einfach mal verdoppeln: das von
-# curve_fit ausgegebene Ergebnis bleibt identisch! Das muss also noch
-# korrigiert werden.
+# print result to screen:
+print("result of fit:\n")
+print("y = a * x + b with")
+print("a = %f +/- %f" % (slope, slope_std_err))
+print("b = %f +/- %f" % (intercept, intercept_std_err))
 
 # Das ist die wichtigste Lektion in diesem Teil: Vorgefertigter Code
 # oder komplette Black-Box-Programme wie Excel sind fuer bestimmte
