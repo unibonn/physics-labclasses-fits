@@ -1,6 +1,8 @@
 #! /usr/bin/env python3
 """Dieses Programm fuehrt ein chi**2 Fit durch.
 """
+import sys
+import argparse
 
 import numpy as np
 import matplotlib.pyplot as plt
