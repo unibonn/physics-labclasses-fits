@@ -162,3 +162,23 @@ plt.ylabel(y_label)
 plt.title(plot_title % (x.shape[0]))
 plt.legend()
 
+#checking if name for file is given
+if args.output_file != None:
+  plt.savefig(args.output_file[0], bbox_inches='tight', dpi=plt_size)
+  error_output = False
+else:
+  error_output = True
+
+
+#showing plot
+plt.show()
+
+# Raising an error, if no output name was given
+if error_output == True:
+  raise Exception(
+'''
+No output filename name was given, nothing will be saved!
+To change that by adding a filename with -o to your command
+e.g. [your previous command] -o new-plot 
+If this was intended, just ignore that error'''
+)
