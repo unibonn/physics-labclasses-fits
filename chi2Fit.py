@@ -79,6 +79,10 @@ a_b_hor = "right"
 
 #resolution
 plt_size = 300
+
+#Want the old Version without input file? - Scroll down to "##__For old Version commment out from here__##" and comment out
+#to "##__until here__##". The old input code is right below that message. All other features should still work.
+
 # Deklariere eine neue Funktion
 def f(x,a,b):
     return a*x + b
@@ -87,10 +91,65 @@ def chi2(x, y, s, f, a, b):
     chi = (y - f(x,a,b))/s
     return np.sum(chi**2)
 
+##__For old Version commment out from here__##
+# Fileinput like in chi2FitXYErr.py
+parser = argparse.ArgumentParser(
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    epilog="""
+DESCRIPTION:
+  This Script is a modified version of "chi2Fit.py"
+
+  Input is a file (command line option -i) with five columns:
+  x, error_x, y, error_y, sigma
+
+  Column 2 is ignored, this is needed for chi2FitXYErr.py.
+  You can put any random number at this columns.
+
+  The input file may contaion comment lines starting with a hash (#).
+
+
+EXAMPLES:
+
+  - ./chi2Fit.py -i my_values.txt
+    Fits a line to the data in 'my_values.txt' and print the fit results to
+    screen
+  
+  - ./chi2Fit.py -i dataxy.txt -o ergebnis.png
+    The same as above. In addition, data points and best-fit line
+    are shown in the plot 'result.png'.
+
+AUTHOR:
+    Written by: Unknown
+    Modified by Christoph Geron (https://github.com/ceron21/)
+    this includes code written by Thomas Erben (terben@astro.uni-bonn.de)
+"""
+)
+parser.add_argument('-i', '--input_file', nargs=1,
+                    required=True, help='Name der Datendatei')
+parser.add_argument('-o', '--output_file', nargs=1,
+                    help='Name des Ausgabeplots (OPTIONAL)')
+
+args = parser.parse_args()
+
+input_file = args.input_file[0]
+
+# Read data:
+data = np.loadtxt(input_file)
+
+# Give meaningful variable names to input data columns:
+xdata = data[:,0]
+ydata = data[:,2]
+sigma = data[:,3]
+
+##__until here__##
+
+##comment in those three lines below and enter your values
+
+
 # Ihre Messdaten kommen hier hin
-xdata = np.array([0.0,1.0,2.0,3.0,4.0,5.0])
-ydata = np.array([1.1,1.3,2.1,2.7,2.8,3.6])
-sigma = np.array([0.2,0.25,0.3,0.35,0.4,0.45])
+# xdata = np.array([0.0,1.0,2.0,3.0,4.0,5.0])
+# ydata = np.array([1.1,1.3,2.1,2.7,2.8,3.6])
+# sigma = np.array([0.2,0.25,0.3,0.35,0.4,0.45])
 
 # Startwerte fuer die Parameterbestimmung
 x0    = np.array([1.0, 0.0])
@@ -195,10 +254,26 @@ plt.errorbar(xdata, ydata, sigma, fmt=val_color, label=vals_legend)
 #creating legend
 plt.legend()
 
+
+#checking for output name and saving plot
+if args.output_file != None:
+  plotname = args.output_file[0]
+  plt.savefig(plotname, bbox_inches=0, dpi=plt_size)
+  error_output = False
+#if no output name is given, an error will be triggered at the end
+else:
+	error_output = True
+# Zeige den Plot
+
 # Zeige den Plot
 plt.show()
 
-# Speichere den Plot
-plotname = 'myplot.pdf'
-plt.savefig(plotname, bbox_inches=0, dpi=600)
-plt.close()
+# Raising an error, if no output name was given
+if error_output == True:
+	raise Exception(
+'''
+No output filename name was given, nothing will be saved!
+To change that by adding a filename with -o to your command
+e.g. [your previous command] -o new-plot 
+If this was intended, just ignore that error'''
+)
