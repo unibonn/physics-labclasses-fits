@@ -8,10 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize as optimize
 
-# Deklariere eine neue Funktion
-def f(x,a,b):
-    return a*x + b
-
 ##_Modify your Plot_##
 
 # NOTICE: Do always read foreign code before exectuing! You can never know what some nasty people wrote in the code...
@@ -83,6 +79,10 @@ a_b_hor = "right"
 
 #resolution
 plt_size = 300
+# Deklariere eine neue Funktion
+def f(x,a,b):
+    return a*x + b
+
 def chi2(x, y, s, f, a, b):
     chi = (y - f(x,a,b))/s
     return np.sum(chi**2)
