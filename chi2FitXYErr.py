@@ -8,10 +8,42 @@ import matplotlib
 import matplotlib.pyplot as plt
 import scipy.odr as sodr
 
-# Funktionsdefinitionen:
+##_Modify your Plot_##
 
-# Die Funktiomn lin_func wird intern von der ODR-Firprozedur benötigt.
-# Ein direktes Aufrufen ist wahrscheinlich nicht allzu sinnvoll!
+# NOTICE: Do always read foreign code before exectuing! You can never know what some nasty people wrote in the code...
+# Just cause this version is simpler to modify doesn't mean that you don't need to understand whats happening!
+
+#Change the string following text to set yout plot labels 
+#Warning: Make sure to keep the "%-Arguments" like %.2f untouched by changing you text!
+
+#Modify Title
+plot_title = "%d data points and line-fit"
+
+#Modify axis labels
+y_label = "y_change_me"
+x_label = "x_change_me"
+label_size = 14
+
+#Text in legend-box
+vals_legend = "data points"
+fit_legend = "y=%.2f * x + %.2f"
+
+#Modify thickness of graphs and axis
+fit_size = 2
+vals_size = 2
+axis_size = 2.0
+
+#Modify color
+err_color = 'r.'
+fit_color = "g"
+
+#resolution
+plt_size = 300
+
+# Function definitions:
+
+# The function lin_finc is internally used by the ODR fitting procedure.
+# It is probably not useful to call it in other curcumstances.
 def lin_func(p, x):
      """
      Die Funktion wird von der ODR-Fitprozedur intern aufgerufen
@@ -127,14 +159,11 @@ if args.output_file != None:
 
      y_fit = a * x + b
 
-     plt.figure()
-     plt.errorbar(x, y, xerr=x_error, yerr=y_error,
-                  lw=2, fmt='.', label="Datenpunkte")
-     plt.plot(x, y_fit, lw=2, label="y=%.2f * x + %.2f" % (a, b))
-     plt.xlabel('x', fontsize=14)
-     plt.ylabel('y', fontsize=14)
-     plt.title("%d Datenpunkte mit Geradenfit" % (x.shape[0]))
-     plt.legend()
-
-     plt.savefig(args.output_file[0], bbox_inches='tight')
+plt.figure()
+plt.errorbar(x, y, xerr=x_error, yerr=y_error, lw=vals_size, fmt=err_color, label=vals_legend)
+plt.plot(x, y_fit, fit_color, lw=fit_size, label=fit_legend % (a, b))
+plt.xlabel(x_label)
+plt.ylabel(y_label)
+plt.title(plot_title % (x.shape[0]))
+plt.legend()
 
