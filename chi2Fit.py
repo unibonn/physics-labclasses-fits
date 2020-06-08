@@ -12,6 +12,77 @@ import scipy.optimize as optimize
 def f(x,a,b):
     return a*x + b
 
+##_Modify your Plot_##
+
+# NOTICE: Do always read foreign code before exectuing! You can never know what some nasty people wrote in the code...
+# Just cause this version is simpler to modify doesn't mean that you don't need to understand whats happening!
+
+#Change the string following text to set yout plot labels 
+#Warning: Make sure to keep the "%-Arguments" like %.2f untouched by changing you text!
+
+#Set your Axis Labels
+#Set an empty string "" to not show that option
+plot_title = "MyPlot.pdf"
+
+y_label = "y_change_me"
+x_label = "x_change_me"
+
+vals_legend = r"Meassured Values"
+fit_lengend = r"Fitted Graph"
+
+#Set Chi-Formula (TeX-natation)
+chi_formula = "$\chi^2=\sum\\frac{(y_i-f(x_i,\\vec{a}))^2}{s_i^2}=%.2f$"
+
+#Set your Function Name
+func_name = "$f(x)=%.2f x"
+
+#Set Name of your Graphs parameters
+first_param = "$a = %.2f"
+second_param =  "b = %.2f"
+
+#Please visit the matplotlib documentation for more options on the following parameters
+#You might need some tries to figure the perfect positions out
+
+#Set Color and format of your graphs
+#Color of the dots that represent your values
+val_color = 'r.'
+fit_color = "g"
+
+#Set fontsizes of formulas in the plot (simply a number)
+y_size = 16
+x_size = 16
+
+chi_size = 15
+fx_size = 15
+a_b_size = 15
+
+#Positions
+#Position of the label
+pos_legend = "upper left"
+
+#Precise positioning of the Formulas
+#Please remember control-z for undo changes
+
+chi_x_anker = 0.95
+fx_x_anker = 0.95
+a_b_x_anker = 0.95
+
+chi_y_anker = 0.25
+fx_y_anker = 0.15
+a_b_y_anker = 0.05
+
+#Positions of Formulas (vertical)
+chi_vert = "bottom"
+fx_vert = "bottom"
+a_b_vert = "bottom"
+
+#Positions of Formulas (horizontal)
+chi_hor = "right"
+fx_hor = "right"
+a_b_hor = "right"
+
+#resolution
+plt_size = 300
 def chi2(x, y, s, f, a, b):
     chi = (y - f(x,a,b))/s
     return np.sum(chi**2)
@@ -84,30 +155,45 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 # Vielleicht wollen Sie noch etwas in den Plot schreiben, z.B. eine Formel?
-formulaText1 = '$f(x)=%.2f x' % slope 
+#f(x)-line
+formulaText1 = func_name % slope 
 formulaText2 = '+ %.2f$' % intercept
 formulaText  = formulaText1 + formulaText2
-ax.text(0.95, 0.15, formulaText, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=20)
-formulaText3 = '$a = %.2f' % slope
+ax.text(fx_x_anker, fx_y_anker, formulaText, verticalalignment=fx_vert, horizontalalignment= fx_hor, transform=ax.transAxes, fontsize=fx_size)
+
+#a-line
+formulaText3 = first_param % slope
 formulaText4 = '\pm %.2f' % slope_std_err
 formulaTextS = formulaText3 + formulaText4
-formulaText5 = ',\,\, b = %.2f' % intercept
+
+#b-line
+formulaText5 = ",\,\," + second_param % intercept
 formulaText6 = '\pm %.2f$' % intercept_std_err
 formulaTextI = formulaText5 + formulaText6
-formulaTextErrors = formulaTextS + formulaTextI
-ax.text(0.95, 0.05, formulaTextErrors, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=20)
-formulaTextChi2 = '$\chi^2=\sum\\frac{(y_i-f(x_i,\\vec{a}))^2}{s_i^2}=%.2f$' % thischi2
-ax.text(0.95, 0.25, formulaTextChi2, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=20)
 
-# Die Achsen brauchen auf jeden Fall eine Beschriftung
-plt.ylabel('Messwert y [Einheit]', fontsize = 16)
-plt.xlabel('Messwert x [Einheit]', fontsize = 16)
+#adding a- and b-line
+formulaTextErrors = formulaTextS + formulaTextI
+ax.text(a_b_x_anker, a_b_y_anker, formulaTextErrors, verticalalignment=a_b_vert, horizontalalignment= a_b_hor, transform=ax.transAxes, fontsize=a_b_size)
+
+#Parts of the follwing text is defined obove 
+#Chi_Formula shown in plot image
+#formulaTextChi2 = chi_formula % thischi2
+#ax.text(chi_x_anker, chi_y_anker, formulaTextChi2, verticalalignment=chi_vert, horizontalalignment= chi_hor, transform=ax.transAxes, fontsize=chi_size)
+
+#title of the plot
+plt.title(plot_title)
+
+# Die Achsen brauchen eine Beschriftung
+plt.ylabel(y_label, fontsize = y_size)
+plt.xlabel(x_label, fontsize = x_size)
 plt.xlim(xdata[0]-1,xdata[-1]+1)
 
 # Plotte die Funktion 
 t = np.arange(xdata[0]-0.5,xdata[-1]+0.5, 0.02)
-plt.plot(t,f(t,slope,intercept))
-plt.errorbar(xdata, ydata, sigma, fmt='ro')
+plt.plot(t,f(t,slope,intercept), fit_color,label=fit_lengend)
+plt.errorbar(xdata, ydata, sigma, fmt=val_color, label=vals_legend)
+#creating legend
+plt.legend()
 
 # Zeige den Plot
 plt.show()
