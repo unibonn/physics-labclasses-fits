@@ -97,6 +97,9 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
     epilog="""
 DESCRIPTION:
+  The script performs a line-fit for data that contains errors in
+  the y-coordinates!
+
   Input a file (command line option -i) with four columns:
   x, error_x, y, error_y
 
