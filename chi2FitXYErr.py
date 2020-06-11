@@ -41,7 +41,7 @@ BESCHREIBUNG:
   als auch in den y-Koordinaten, mit Fehlern behaftet sind.
   
   Programm Eingabe ist eine Datei (Programmoption -i) mit vier Spalten:
-  x y fehler_x fehler_y
+  x fehler_x y fehler_y
   
   Die Datei darf Kommentarzeilen, die mit einem '#' eingeleitet werden,
   enthalten,
