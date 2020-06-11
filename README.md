@@ -41,5 +41,5 @@ You can't trust any code you on the internet if you don't understand whats going
 
 Contibutors:  
 [Thomas Erben](https://github.com/terben)  
-[Christoph Geron](https://github.com/nonchris)   
+[Christoph Geron](https://github.com/nonchris)
 [pbechtle](https://github.com/pbechtle)
