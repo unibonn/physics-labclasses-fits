@@ -97,13 +97,11 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
     epilog="""
 DESCRIPTION:
-  This Script is a modified version of "chi2Fit.py"
+  Input a file (command line option -i) with four columns:
+  x, error_x, y, error_y
 
-  Input is a file (command line option -i) with five columns:
-  x, error_x, y, error_y, sigma
-
-  Column 2 is ignored, this is needed for chi2FitXYErr.py.
-  You can put any random number at this columns.
+  Column 2 / error_x will be ignored, this column is needed for chi2FitXYErr.py.
+  You can put any random number in this columns, as long as it's existing.
 
   The input file may contaion comment lines starting with a hash (#).
 
@@ -114,7 +112,7 @@ EXAMPLES:
     Fits a line to the data in 'my_values.txt' and print the fit results to
     screen
   
-  - ./chi2Fit.py -i dataxy.txt -o ergebnis.png
+  - ./chi2Fit.py -i dataxy.txt -o result.png
     The same as above. In addition, data points and best-fit line
     are shown in the plot 'result.png'.
 
