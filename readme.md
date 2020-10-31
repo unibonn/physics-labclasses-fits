@@ -8,7 +8,7 @@ _Needed packages:_
 * matplotlib
 * scipy  
 
-Use `pip3 install -r requirements.txt` to isntall all packages at once recursively.  
+Use `pip3 install -r requirements.txt` to install all packages at once recursively.  
 Please consider using a [*virtual environment*](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment) when installing python packages on your system.  
 Otherwise you're installing those packages globaly on your system which is a potential security flaw!  
 
