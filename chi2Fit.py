@@ -27,14 +27,15 @@ vals_legend = r"Meassured Values"
 fit_lengend = r"Fitted Graph"
 
 #Set Chi-Formula (TeX-natation)
-chi_formula = "$\chi^2=\sum\\frac{(y_i-f(x_i,\\vec{a}))^2}{s_i^2}=%.2f$"
+chi_formula = "$\chi^2=\sum\\frac{(y_i-f(x_i,\\vec{a}))^2}{s_i^2}={0}$"
 
 #Set your Function Name
-func_name = "$f(x)=%.2f x"
+func_name = "$f(x)={0} x"
 
 #Set Name of your Graphs parameters
-first_param = "$a = %.2f"
-second_param =  "b = %.2f"
+first_param = "$a = {0}"
+second_param =  "b = {0}"
+rounding_precession = 2
 
 #Please visit the matplotlib documentation for more options on the following parameters
 #You might need some tries to figure the perfect positions out
@@ -216,20 +217,20 @@ ax = fig.add_subplot(111)
 
 # Vielleicht wollen Sie noch etwas in den Plot schreiben, z.B. eine Formel?
 #f(x)-line
-formulaText1 = func_name % slope 
-formulaText2 = '+ %.2f$' % intercept
+formulaText1 = func_name.format(round(slope, rounding_precession))
+formulaText2 = '+ {0}$'.format(round(intercept, rounding_precession))
 formulaText  = formulaText1 + formulaText2
 ax.text(fx_x_anker, fx_y_anker, formulaText, verticalalignment=fx_vert, horizontalalignment= fx_hor, transform=ax.transAxes, fontsize=fx_size)
 
 #a-line
-formulaText3 = first_param % slope
-formulaText4 = '\pm %.2f' % slope_std_err
+formulaText3 = first_param.format(round(slope, rounding_precession))
+formulaText4 = '\pm {0}'.format(round(slope_std_err, rounding_precession))
 formulaTextS = formulaText3 + formulaText4
 
 #b-line
-formulaText5 = ",\,\," + second_param % intercept
-formulaText6 = '\pm %.2f$' % intercept_std_err
-formulaTextI = formulaText5 + formulaText6
+formulaText5 = ",\,\," + second_param.format(round(intercept, rounding_precession))
+formulaText6 = '\pm {0}$'.format(round(intercept_std_err, rounding_precession))
+formulaTextI = f"{formulaText5} {formulaText6}"
 
 #adding a- and b-line
 formulaTextErrors = formulaTextS + formulaTextI
@@ -237,7 +238,7 @@ ax.text(a_b_x_anker, a_b_y_anker, formulaTextErrors, verticalalignment=a_b_vert,
 
 #Parts of the follwing text is defined obove 
 #Chi_Formula shown in plot image
-#formulaTextChi2 = chi_formula % thischi2
+#formulaTextChi2 = chi_formula.format(round(thischi2, rounding_precession))
 #ax.text(chi_x_anker, chi_y_anker, formulaTextChi2, verticalalignment=chi_vert, horizontalalignment= chi_hor, transform=ax.transAxes, fontsize=chi_size)
 
 #title of the plot
