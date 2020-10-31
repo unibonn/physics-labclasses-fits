@@ -97,7 +97,7 @@ EXAMPLES:
 
 AUTHOR:
   Thomas Erben (terben@astro.uni-bonn.de)
-  Modified by Christoph Geron (https://github.com/ceron21/)
+  Modified by Christoph Geron (https://github.com/nonchris/)
 """
 )
 parser.add_argument('-i', '--input_file', nargs=1,
