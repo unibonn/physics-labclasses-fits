@@ -165,20 +165,19 @@ plt.legend()
 #checking if name for file is given
 if args.output_file != None:
   plt.savefig(args.output_file[0], bbox_inches='tight', dpi=plt_size)
-  error_output = False
+#if no output name is given, an output will be printed
 else:
-  error_output = True
+  print(
+    '''
+-----
+NO OUTPUT FILENAME WAS GIVEN, nothing will be saved!
+To change that by adding a filename with -o to your command
+e.g. [your previous command] -o new-plot 
+If this was intended, just ignore that error
+-----'''
+    )
 
 
 #showing plot
 plt.show()
 
-# Raising an error, if no output name was given
-if error_output == True:
-  raise Exception(
-'''
-No output filename name was given, nothing will be saved!
-To change that by adding a filename with -o to your command
-e.g. [your previous command] -o new-plot 
-If this was intended, just ignore that error'''
-)
