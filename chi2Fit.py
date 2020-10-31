@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-"""Dieses Programm fuehrt ein chi**2 Fit durch.
+"""This program executes a chi**2 fit.
 """
 import sys
 import argparse
@@ -121,7 +121,7 @@ EXAMPLES:
 
 AUTHOR:
     Written by: Unknown
-    Modified by Christoph Geron (https://github.com/ceron21/)
+    Modified by Christoph Geron (https://github.com/nonchris/)
     this includes code written by Thomas Erben (terben@astro.uni-bonn.de)
 """
 )
