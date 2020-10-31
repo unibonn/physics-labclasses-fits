@@ -260,21 +260,18 @@ plt.legend()
 if args.output_file != None:
   plotname = args.output_file[0]
   plt.savefig(plotname, bbox_inches=0, dpi=plt_size)
-  error_output = False
-#if no output name is given, an error will be triggered at the end
+#if no output name is given, an output will be printed
 else:
-	error_output = True
-# Zeige den Plot
-
-# Zeige den Plot
-plt.show()
-
-# Raising an error, if no output name was given
-if error_output == True:
-	raise Exception(
-'''
-No output filename name was given, nothing will be saved!
+	print(
+    '''
+-----
+NO OUTPUT FILENAME WAS GIVEN, nothing will be saved!
 To change that by adding a filename with -o to your command
 e.g. [your previous command] -o new-plot 
-If this was intended, just ignore that error'''
-)
+If this was intended, just ignore that error
+-----'''
+
+    )
+
+#Show the plot
+plt.show()
