@@ -40,6 +40,6 @@ There is also an example file `values.txt` included that shows how to format you
 You can't trust any code you on the internet if you don't understand whats going on!**  
 
 Contibutors:  
-[Thomas Erben](https://github.com/terben)  
-[Christoph Geron](https://github.com/nonchris)   
-[pbechtle](https://github.com/pbechtle)
+* [Thomas Erben](https://github.com/terben)  
+* [Christoph Geron](https://github.com/nonchris)   
+* [pbechtle](https://github.com/pbechtle)
