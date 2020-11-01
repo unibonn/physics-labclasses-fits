@@ -35,7 +35,8 @@ func_name = "$f(x)={0} x"
 #Set Name of your Graphs parameters
 first_param = "$a = {0}"
 second_param =  "b = {0}"
-rounding_precession = 2
+rounding_precession = 2 #rounding in graph display
+terminal_precession = 6 #rounding in terminal output
 
 #Please visit the matplotlib documentation for more options on the following parameters
 #You might need some tries to figure the perfect positions out
@@ -188,8 +189,8 @@ intercept_std_err = fitErrors[1]
 # print result to screen:
 print("result of fit:\n")
 print("y = a * x + b with")
-print("a = %f +/- %f" % (slope, slope_std_err))
-print("b = %f +/- %f" % (intercept, intercept_std_err))
+print(f"a = {round(slope, terminal_precession)} +/- {round(slope_std_err, terminal_precession)}")
+print(f"b = {round(intercept, terminal_precession)} +/- {round(intercept_std_err, terminal_precession)}")
 
 # Das ist die wichtigste Lektion in diesem Teil: Vorgefertigter Code
 # oder komplette Black-Box-Programme wie Excel sind fuer bestimmte
@@ -207,7 +208,8 @@ thischi2=chi2(xdata,ydata,sigma,f,fitParams[0],fitParams[1])
 ndf = len(ydata)-len(fitParams)
 fitErrors = np.sqrt(np.diag(fitCovariances))
 for i in range(0,2):
-    print('parameter {0}:     {1:.3f} +- {2:.3f}'.format(i,fitParams[i], fitErrors[i]))
+    print(f'parameter {i}:     {round(fitParams[i], terminal_precession)} +- {round(fitErrors[i], terminal_precession)}')  
+
 slope_std_err = fitErrors[0]
 intercept_std_err = fitErrors[1]
 
