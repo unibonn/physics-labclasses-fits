@@ -19,7 +19,7 @@ import scipy.odr as sodr
 #Warning: Make sure to keep the "%-Arguments" like %.2f untouched by changing you text!
 
 #Modify Title
-plot_title = "%d data points and line-fit"
+plot_title = "{0} data points and line-fit"
 
 #Modify axis labels
 y_label = "y_change_me"
@@ -28,7 +28,9 @@ label_size = 14
 
 #Text in legend-box
 vals_legend = "data points"
-fit_legend = "y=%.2f * x + %.2f"
+fit_legend = "y = {0} * x + {1}"
+rounding_precession = 4 #rounding in graph display
+terminal_precession = 6 #rounding in terminal output
 
 #Modify thickness of graphs and axis
 fit_size = 2
@@ -143,8 +145,8 @@ err_b = out.sd_beta[1] # error ob b
 
 print("result of fit:\n")
 print("y = a * x + b with\n")
-print("a = %f +/- %f" % (a, err_a))
-print("b = %f +/- %f" % (b, err_b))
+print(f"a = {round(a, terminal_precession)} +/- {round(err_a, terminal_precession)}")
+print(f"b = {round(b, terminal_precession)} +/- {round(err_b, terminal_precession)}")
 
 # create a plot
 # font size of labels etc,
@@ -153,13 +155,14 @@ matplotlib.rcParams['font.size'] = label_size
 matplotlib.rcParams['axes.linewidth'] = axis_size
 
 y_fit = a * x + b
+legend_label = fit_legend.format(round(a, rounding_precession), round(b, rounding_precession))
 
 plt.figure()
 plt.errorbar(x, y, xerr=x_error, yerr=y_error, lw=vals_size, fmt=err_color, label=vals_legend)
-plt.plot(x, y_fit, fit_color, lw=fit_size, label=fit_legend % (a, b))
+plt.plot(x, y_fit, fit_color, lw=fit_size, label=legend_label)
 plt.xlabel(x_label)
 plt.ylabel(y_label)
-plt.title(plot_title % (x.shape[0]))
+plt.title(plot_title.format(x.shape[0]))
 plt.legend()
 
 #checking if name for file is given
