@@ -31,7 +31,7 @@ def lin_func(p, x):
 # Skriptstart
 #
 
-# lese Kommandozeilenparameter:
+# Lese Kommandozeilenparameter:
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
     epilog="""
@@ -41,7 +41,7 @@ BESCHREIBUNG:
   als auch in den y-Koordinaten, mit Fehlern behaftet sind.
   
   Programm Eingabe ist eine Datei (Programmoption -i) mit vier Spalten:
-  x y fehler_x fehler_y
+  x fehler_x y fehler_y
   
   Die Datei darf Kommentarzeilen, die mit einem '#' eingeleitet werden,
   enthalten,
@@ -119,22 +119,23 @@ print("b = %f +/- %f" % (b, err_b))
 
 # Erstelle eventuell noch einen Plot mit Daten und Fitgerade:
 if args.output_file != None:
-     # Vernünftige Symbolgrößen etc:
-     font = {'weight' : 'normal',
-             'size'   : 14}
+    # Vernünftige Symbolgrößen etc:
+    font = {'weight' : 'normal',
+            'size'   : 14}
 
-     matplotlib.rc('font', **font)
+    matplotlib.rc('font', **font)
 
-     y_fit = a * x + b
+    y_fit = a * x + b
 
-     plt.figure()
-     plt.errorbar(x, y, xerr=x_error, yerr=y_error,
-                  lw=2, fmt='.', label="Datenpunkte")
-     plt.plot(x, y_fit, lw=2, label="y=%.2f * x + %.2f" % (a, b))
-     plt.xlabel('x', fontsize=14)
-     plt.ylabel('y', fontsize=14)
-     plt.title("%d Datenpunkte mit Geradenfit" % (x.shape[0]))
-     plt.legend()
+    #  plt.figure()
+    fig, ax = plt.subplots()
+    ax.errorbar(x, y, xerr=x_error, yerr=y_error,
+                lw=2, fmt='.', label="Datenpunkte")
+    ax.plot(x, y_fit, lw=2, label="y=%.2f * x + %.2f" % (a, b))
+    ax.set_xlabel('x', fontsize=14)
+    ax.set_ylabel('y', fontsize=14)
+    ax.set_title("%d Datenpunkte mit Geradenfit" % (x.shape[0]))
+    ax.legend()
 
-     plt.savefig(args.output_file[0], bbox_inches='tight')
+    fig.savefig(args.output_file[0], bbox_inches='tight')
 

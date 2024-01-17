@@ -71,21 +71,22 @@ intercept_std_err = fitErrors[1]
 thischi2=chi2(xdata,ydata,sigma,f,fitParams[0],fitParams[1])
 
 ndf = len(ydata)-len(fitParams)
-fitErrors = np.sqrt(np.diag(fitCovariances))
+# fitErrors = np.sqrt(np.diag(fitCovariances))
 for i in range(0,2):
     print('parameter {0}:     {1:.3f} +- {2:.3f}'.format(i,fitParams[i], fitErrors[i]))
 slope_std_err = fitErrors[0]
 intercept_std_err = fitErrors[1]
 
 # nun erschaffen wir einen plot
-fig = plt.figure()
-ax = fig.add_subplot(111)
+# fig = plt.figure()
+# ax = fig.add_subplot(111)
+fig, ax  = plt.subplots()
 
 # Vielleicht wollen Sie noch etwas in den Plot schreiben, z.B. eine Formel?
 formulaText1 = '$f(x)=%.2f x' % slope 
 formulaText2 = '+ %.2f$' % intercept
 formulaText  = formulaText1 + formulaText2
-ax.text(0.95, 0.15, formulaText, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=20)
+ax.text(0.95, 0.15, formulaText, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=16)
 formulaText3 = '$a = %.2f' % slope
 formulaText4 = '\pm %.2f' % slope_std_err
 formulaTextS = formulaText3 + formulaText4
@@ -93,24 +94,24 @@ formulaText5 = ',\,\, b = %.2f' % intercept
 formulaText6 = '\pm %.2f$' % intercept_std_err
 formulaTextI = formulaText5 + formulaText6
 formulaTextErrors = formulaTextS + formulaTextI
-ax.text(0.95, 0.05, formulaTextErrors, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=20)
+ax.text(0.95, 0.05, formulaTextErrors, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=16)
 formulaTextChi2 = '$\chi^2=\sum\\frac{(y_i-f(x_i,\\vec{a}))^2}{s_i^2}=%.2f$' % thischi2
-ax.text(0.95, 0.25, formulaTextChi2, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=20)
+ax.text(0.95, 0.25, formulaTextChi2, verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, fontsize=16)
 
 # Die Achsen brauchen auf jeden Fall eine Beschriftung
-plt.ylabel('Messwert y [Einheit]', fontsize = 16)
-plt.xlabel('Messwert x [Einheit]', fontsize = 16)
-plt.xlim(xdata[0]-1,xdata[-1]+1)
+ax.set_ylabel('Messwert y [Einheit]', fontsize = 16)
+ax.set_xlabel('Messwert x [Einheit]', fontsize = 16)
+ax.set_xlim(xdata[0]-1,xdata[-1]+1)
 
 # Plotte die Funktion 
 t = np.arange(xdata[0]-0.5,xdata[-1]+0.5, 0.02)
-plt.plot(t,f(t,slope,intercept))
-plt.errorbar(xdata, ydata, sigma, fmt='ro')
+ax.plot(t,f(t,slope,intercept))
+ax.errorbar(xdata, ydata, sigma, fmt='ro')
 
 # Zeige den Plot
 plt.show()
 
 # Speichere den Plot
 plotname = 'myplot.pdf'
-plt.savefig(plotname, bbox_inches=0, dpi=600)
-plt.close()
+fig.savefig(plotname, bbox_inches=0, dpi=600)
+# fig.close()
